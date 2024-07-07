@@ -1,1 +1,1 @@
-# yzly100.github.io
+# yzly100.io
