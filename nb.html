@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="=IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root{
+            --w:240px;
+            --h:240px;
+        }
+        body{
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction:column ;
+            background-color: #0c1c38;
+        }
+        #book{
+            height:var(--h) ;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 1s;
+            perspective: 1600px;
+            transform-style: preserve-3d;        }
+        .book-cover{
+            height: calc(var(--h) + 50px);
+            width: calc(var(--h) + 50px);
+            position: absolute;
+            background-image: linear-gradient(to bottom,#ff5c33,#ff9166,#3dd6f5);
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            transition: 1s;
+            transform-origin: left;
+            backface-visibility: visible;
+            border: .5px solid black;
+
+        }
+        .book-page{
+            height: var(--h);
+            width: var(--w);
+            position: absolute;
+            z-index: 100;
+            transition: 1s;
+            transform-origin: -25px;
+            background-size: cover;
+            backface-visibility: visible;
+        }
+        #control{
+            margin-top: 60px;
+            user-select: none;
+        }
+        #control button{
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            border: 0;
+            margin: 0px 15px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50%;
+            background-color:rgba(63, 63, 63,.8) ;
+            outline: none;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="book">
+        <div class="book-cover one-page"></div>
+
+
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+        <div class="book-cover one-page"></div>
+
+        <div class="book-cover one-page"></div>
+    </div>
+    <div id="control">
+      <button>&lt;</button>  
+      <button>&gt;</button>  
+    </div>
+    <script>
+        const PAGECOUNT = 12
+        let pageNO = 0
+        let pages = document.querySelectorAll('.book-page')
+        let cover = document.querySelectorAll('.book-cover')
+        let btn= document.querySelectorAll('.book-button')
+        let book = document .querySelectorAll('#book')
+        let allPages = document .querySelectorAll('.one-page')
+        function init(){
+            for(let index = 0; index < pages, length; index++){
+                pages[index].style.backgroundImage = "url"('" + [index+1] + ".jpg')"
+                pages[index].style.zIndex = PAGECOUNT -index -1 
+            }
+            cover[0].style.zIndex = PAGECOUNT
+            cover[1].style.zIndex = 1
+            btn[0].style.backgroundColor = "rgba(110,110,110,0.5)"
+            btn[0].style.color = "darkgray"
+            btn[0].disabled = true
+
+            btn[0].onclick=function(){
+                pageNO --
+                if ((PAGECOUNT - 1) == pageNO) {
+                    allPages[pageNO].style.transform = 'rotateY(0deg)'
+                    book.style.transform = 'translateX(145px)'
+                    btn[1].style.backgroundColor="rgba(63,63,63,0.8)"
+                    btn[1].style.color="white"
+                    btn[1].disabled= false
+                }
+                else{
+                    allPages[pageNO].style.transform='rotateY(0deg)'
+                }
+                    allPages[pageNO].style.zIndex=PAGECOUNT-pageNO
+                if(0==pageNO){
+                    btn[0].style.backgroundColor="rgba(110,110,110,0.5)"
+                    btn[0].style.color="darkgray"
+                    btn{0}.disabled = true
+                    book.style.transform='translateX(0px)'
+                }
+            }
+        
+            btn[0].onclick=function(){
+                if (0==pageNO) {
+                    allPages[pageNO].style.transform = 'rotateY(-180deg)'
+                    book.style.transform = 'translateX(145px)'
+                    btn[0].style.backgroundColor="rgba(63,63,63,0.8)"
+                    btn[0].style.color="white"
+                    btn[0].disabled= false
+                }
+                else{
+                    allPages[pageNO].style.transform='rotateY(-180deg)'
+                }
+
+                allPages[pageNO].style.zIndex=1000+pageNO
+                pageNO ++
+                if(PAGECOUNT== pageNO){
+                    btn[1].style.backgroundColor="rgba(110,110,110,0.5)"
+                    btn[1].style.color="darkgray"
+                    btn{1}.disabled = true
+                    book.style.transform='translateX(300px)'
+                }
+        }
+        }
+        init()
+    </script>
+</body>
+</html>
